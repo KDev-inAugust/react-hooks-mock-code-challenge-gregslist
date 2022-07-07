@@ -3,7 +3,7 @@ import ListingCard from "./ListingCard";
 
 // import ListingCard from "./ListingCard";
 
-function ListingsContainer() {
+function ListingsContainer({passedSearch}) {
   const [listings, setListings] = useState([])
 
   useEffect(()=>{
@@ -20,10 +20,23 @@ function ListingsContainer() {
       console.log(deletedItem)
   }
 
+console.log("passed search=", passedSearch)
+
+  
+
+  let filtered = listings.filter((index)=>{ 
+    if(passedSearch===""){
+      return listings;
+    }
+    else return index.description.toLowerCase().includes(passedSearch); 
+})
+
+
+
   return (
     <main>
       <ul className="cards">
-        {listings.map((index)=>{
+        {filtered.map((index)=>{
           return(
             <ListingCard listing={index} onDeleteClick={onDeleteClick}/>
           )

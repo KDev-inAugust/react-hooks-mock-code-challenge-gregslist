@@ -1,12 +1,21 @@
-import React from "react";
+import React, {useState} from "react";
 import Header from "./Header";
 import ListingsContainer from "./ListingsContainer";
 
 function App() {
+
+ const [passedSearch, setPassedSearch] = useState("")
+
+  function onSearchSubmit (value){
+    console.log("in APP function", value);
+    setPassedSearch(value);
+  }
+ 
+
   return (
     <div className="app">
-      <Header />
-      <ListingsContainer />
+      <Header onSearchSubmit={onSearchSubmit}/>
+      <ListingsContainer passedSearch={passedSearch}/>
     </div>
   );
 }
