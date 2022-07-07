@@ -13,12 +13,19 @@ function ListingsContainer() {
   
   },[])
 
+  function onDeleteClick(deletedItem){
+    const update = listings.filter((index)=>
+      index.id !==deletedItem.id);
+      setListings(update);
+      console.log(deletedItem)
+  }
+
   return (
     <main>
       <ul className="cards">
         {listings.map((index)=>{
           return(
-            <ListingCard listing={index} />
+            <ListingCard listing={index} onDeleteClick={onDeleteClick}/>
           )
         })}
       </ul>

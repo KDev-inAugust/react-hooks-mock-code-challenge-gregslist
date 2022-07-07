@@ -1,14 +1,21 @@
 import React, {useState}from "react";
 
-function ListingCard({listing}) {
+function ListingCard({listing, onDeleteClick}) {
   const {id, description, image, location} = listing
   const [favorite, setFavorite]=useState("emoji-button favorite")
 
 function handleFavoriteClick (){
   favorite==="emoji-button favorite" ? setFavorite("emoji-button favorite active")
   :
-  setFavorite("emoji-button favorite")
-  
+  setFavorite("emoji-button favorite") 
+}
+
+function handleDeleteCLick (){
+  fetch(`http://localhost:6001/listings/${listing.id}`, {
+    method: "DELETE",
+})
+.then((res)=>res.json())
+.then(()=>onDeleteClick(listing));
 }
 
   return (
@@ -27,7 +34,7 @@ function handleFavoriteClick (){
         </div>
         <strong>{description}</strong>
         <span> {location}</span>
-        <button className="emoji-button delete">🗑</button>
+        <button onClick={handleDeleteCLick} className="emoji-button delete">🗑</button>
       </div>
     </li>
   );
